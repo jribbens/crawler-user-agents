@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "crawler-user-agents"
 version = "0.1"
@@ -14,18 +18,20 @@ dev = [
   "iniconfig==2.0.0",
   "jsonschema==4.22.0",
   "jsonschema-specifications==2023.12.1",
+  "mypy==1.11.2",
+  "mypy-extensions==1.0.0",
   "packaging==24.0",
   "pluggy==1.5.0",
   "pytest==8.2.0",
   "referencing==0.35.0",
   "rpds-py==0.18.0",
+  "ruff==0.6.4",
+  "types-jsonschema==4.23.0.20240813",
+  "typing-extensions==4.12.2",
 ]
 
 [project.urls]
 Homepage = "https://github.com/monperrus/crawler-user-agents"
 
 [tool.setuptools]
-package-dir = {"crawleruseragents" = "."}
-
-[tool.setuptools.package-data]
-"*" = ["*.json"]
+packages = ["crawleruseragents"]

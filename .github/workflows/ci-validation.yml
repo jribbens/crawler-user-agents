@@ -22,6 +22,9 @@ jobs:
       - run: node format.js --check
       - run: pip3 install -e .[dev]
       - run: py.test -vv
+      - run: mypy --strict *.py crawleruseragents/*.py
+      - run: ruff check
+      - run: ruff format --check
       - run: python3 validate.py
       - run: php validate.php
       - run: go test

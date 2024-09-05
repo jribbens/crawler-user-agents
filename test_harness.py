@@ -5,35 +5,36 @@ Usage:
 $ pytest test_harness.py
 
 """
+
 from crawleruseragents import is_crawler, matching_crawlers
 
 
-def test_match():
+def test_match() -> None:
     assert is_crawler("test Googlebot/2.0 test") is True
 
 
-def test_nomatch():
+def test_nomatch() -> None:
     assert is_crawler("!!!!!!!!!!!!") is False
 
 
-def test_case():
+def test_case() -> None:
     assert is_crawler("test googlebot/2.0 test") is False
 
 
-def test_matching_crawlers_match():
+def test_matching_crawlers_match() -> None:
     result = matching_crawlers("test Googlebot/2.0 test")
     assert isinstance(result, list)
     assert len(result) > 0
     assert all(isinstance(val, int) for val in result)
 
 
-def test_matching_crawlers_nomatch():
+def test_matching_crawlers_nomatch() -> None:
     result = matching_crawlers("!!!!!!!!!!!!")
     assert isinstance(result, list)
     assert len(result) == 0
 
 
-def test_matching_crawlers_case():
+def test_matching_crawlers_case() -> None:
     result = matching_crawlers("test googlebot/2.0 test")
     assert isinstance(result, list)
     assert len(result) == 0

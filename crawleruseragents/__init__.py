@@ -1,13 +1,23 @@
 import re
 import json
 from pathlib import Path
+from typing import Required, TypedDict
 
 
-def load_json():
+class UserAgent(TypedDict, total=False):
+    addition_date: str
+    depends_on: list[str]
+    description: str
+    instances: Required[list[str]]
+    pattern: Required[str]
+    url: str
+
+
+def load_json() -> list[UserAgent]:
     cwd = Path(__file__).parent
     user_agents_file_path = cwd / "crawler-user-agents.json"
     with user_agents_file_path.open() as patterns_file:
-        return json.load(patterns_file)
+        return json.load(patterns_file)  # type: ignore
 
 
 CRAWLER_USER_AGENTS_DATA = load_json()

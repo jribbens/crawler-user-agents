@@ -1,5 +1,7 @@
 .cache
 __pycache__
-/vendor/
+/build/
+/dist/
 /env/
+/vendor/
 *.egg-info/
