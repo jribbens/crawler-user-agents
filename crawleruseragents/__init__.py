@@ -1,15 +1,15 @@
 import re
 import json
 from pathlib import Path
-from typing import Required, TypedDict
+from typing import TypedDict
 
 
 class UserAgent(TypedDict, total=False):
     addition_date: str
     depends_on: list[str]
     description: str
-    instances: Required[list[str]]
-    pattern: Required[str]
+    instances: list[str]
+    pattern: str
     url: str
 
 

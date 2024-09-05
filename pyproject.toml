@@ -5,6 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "crawler-user-agents"
 version = "0.1"
+requires-python = ">=3.8"
 
 authors = [
   { name="Martin Monperrus", email="martin.monperrus@gnieh.org" },
