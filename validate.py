@@ -112,9 +112,7 @@ def main() -> None:
     # Check for patterns that match other patterns
     for entry1 in json_data:
         for entry2 in json_data:
-            if entry1 != entry2 and re.search(
-                entry1["pattern"], entry2["pattern"]
-            ):
+            if entry1 != entry2 and re.search(entry1["pattern"], entry2["pattern"]):
                 raise ValueError(
                     "Pattern {!r} is a subset of {!r}".format(
                         entry2["pattern"], entry1["pattern"]
