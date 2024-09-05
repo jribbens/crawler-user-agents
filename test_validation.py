@@ -41,7 +41,7 @@ def assert_validate_passed() -> None:
     assert subprocess.call(["python", "validate.py"]) == 0
 
 
-def test_simple_pass() -> None:
+def test_simple_pass(restore_original_json) -> None:
     # the json must be an array of objects containing "pattern"
     # there must be more than 10 instances to pass
     user_agent_list: list[UserAgent] = [
@@ -68,28 +68,28 @@ def test_simple_pass() -> None:
     assert_validate_passed()
 
 
-def test_simplest_pass() -> None:
+def test_simplest_pass(restore_original_json) -> None:
     # the simplest crawler file passes
     user_agent_list: list[UserAgent] = [{"pattern": "foo", "instances": []}]
     update_json_file(user_agent_list)
     assert_validate_passed()
 
 
-def test_schema_violation_dict1() -> None:
+def test_schema_violation_dict1(restore_original_json) -> None:
     # contract: the json must be an array
     user_agent_list: list[UserAgent] = {"foo": None}  # type: ignore
     update_json_file(user_agent_list)
     assert_validate_failed()
 
 
-def test_schema_violation_dict2() -> None:
+def test_schema_violation_dict2(restore_original_json) -> None:
     # contract: the json must be an array of objects containing "pattern"
     user_agent_list: list[UserAgent] = [{"foo": None}]  # type: ignore
     update_json_file(user_agent_list)
     assert_validate_failed()
 
 
-def test_schema_violation_dict3() -> None:
+def test_schema_violation_dict3(restore_original_json) -> None:
     # contract: the json must be an array of objects containing "pattern" and valid properties
     user_agent_list: list[UserAgent] = [
         {"pattern": "foo", "foo": 3}  # type: ignore
@@ -98,7 +98,7 @@ def test_schema_violation_dict3() -> None:
     assert_validate_failed()
 
 
-def test_simple_duplicate_detection() -> None:
+def test_simple_duplicate_detection(restore_original_json) -> None:
     # contract: if we have the same pattern twice, it fails
     user_agent_list: list[UserAgent] = [
         {
@@ -128,7 +128,7 @@ def test_simple_duplicate_detection() -> None:
     assert_validate_failed()
 
 
-def test_simple_duplicate_detection2() -> None:
+def test_simple_duplicate_detection2(restore_original_json) -> None:
     # contract: if we have the same pattern twice, it fails (even w/o instances)
     user_agent_list: list[UserAgent] = [
         {
@@ -156,7 +156,7 @@ def test_simple_duplicate_detection2() -> None:
     assert_validate_failed()
 
 
-def test_subset_duplicate_detection() -> None:
+def test_subset_duplicate_detection(restore_original_json) -> None:
     # contract: if a pattern matches another pattern, it fails
     user_agent_list: list[UserAgent] = [
         {
@@ -183,7 +183,7 @@ def test_subset_duplicate_detection() -> None:
     assert_validate_failed()
 
 
-def test_case_sensitivity() -> None:
+def test_case_sensitivity(restore_original_json) -> None:
     # contract: the patterns are case sensitive
     user_agent_list: list[UserAgent] = [
         {
@@ -209,7 +209,7 @@ def test_case_sensitivity() -> None:
     assert_validate_failed()
 
 
-def test_duplicate_case_insensitive_detection() -> None:
+def test_duplicate_case_insensitive_detection(restore_original_json) -> None:
     # contract: fail if we have patterns that differ only in capitailization
     user_agent_list: list[UserAgent] = [
         {
